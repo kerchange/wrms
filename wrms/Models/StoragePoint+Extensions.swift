@@ -9,37 +9,15 @@ import Foundation
 import CoreData
 
 extension StoragePoint {
-    // Convenience property to get items as an array
-    var itemsArray: [Item] {
-        return items?.allObjects as? [Item] ?? []
-    }
+    @objc(addItemsObject:)
+    @NSManaged public func addToItems(_ value: Item)
     
-    // Convenience method to create a new StoragePoint
-    static func create(in context: NSManagedObjectContext,
-                       name: String,
-                       x: Double,
-                       y: Double,
-                       storageArea: StorageArea) -> StoragePoint {
-        let point = StoragePoint(context: context)
-        point.id = UUID()
-        point.name = name
-        point.xPosition = x
-        point.yPosition = y
-        point.storageArea = storageArea
-        return point
-    }
+    @objc(removeItemsObject:)
+    @NSManaged public func removeFromItems(_ value: Item)
     
-    // Get all storage points for a specific storage area
-    static func fetch(for storageArea: StorageArea, in context: NSManagedObjectContext) -> [StoragePoint] {
-        let request: NSFetchRequest<StoragePoint> = StoragePoint.fetchRequest()
-        request.predicate = NSPredicate(format: "storageArea == %@", storageArea)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \StoragePoint.name, ascending: true)]
-        
-        do {
-            return try context.fetch(request)
-        } catch {
-            print("Error fetching storage points: \(error)")
-            return []
-        }
-    }
+    @objc(addItems:)
+    @NSManaged public func addToItems(_ values: NSSet)
+    
+    @objc(removeItems:)
+    @NSManaged public func removeFromItems(_ values: NSSet)
 }

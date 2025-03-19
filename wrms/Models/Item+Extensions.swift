@@ -10,7 +10,8 @@ import UIKit
 import CoreData
 
 extension Item {
-    // Convenience property to get the UIImage from imageData
+    // MARK: - Computed Properties
+    
     var image: UIImage? {
         if let imageData = imageData {
             return UIImage(data: imageData)
@@ -18,7 +19,6 @@ extension Item {
         return nil
     }
     
-    // Check if item is expiring soon (within 7 days)
     var isExpiringSoon: Bool {
         guard let expiryDate = expiryDate else { return false }
         let calendar = Calendar.current
@@ -27,13 +27,18 @@ extension Item {
         return components.day ?? 0 <= 7 && components.day ?? 0 >= 0
     }
     
-    // Check if item is expired
     var isExpired: Bool {
         guard let expiryDate = expiryDate else { return false }
         return expiryDate < Date()
     }
     
-    // Convenience method to create a new Item
+    // Helper property for UI
+    var displayName: String {
+        return name ?? "Unnamed Item"
+    }
+    
+    // MARK: - Static Methods
+    
     static func create(in context: NSManagedObjectContext,
                        name: String,
                        description: String?,

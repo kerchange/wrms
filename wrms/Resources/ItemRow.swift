@@ -39,7 +39,7 @@ struct ItemRow: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.name)
+                Text(item.nonOptionalName)
                     .font(.headline)
                 
                 if let description = item.itemDescription, !description.isEmpty {

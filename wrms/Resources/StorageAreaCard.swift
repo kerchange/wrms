@@ -27,14 +27,14 @@ struct StorageAreaCard: View {
             }
             
             HStack {
-                Text(storageArea.name)
+                Text(storageArea.name ?? "")
                     .font(.headline)
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                 
                 Spacer()
                 
-                Text("\(storageArea.storagePoints.count) points")
+                Text("\(storageArea.storagePoints?.count) points")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .padding(.horizontal)
