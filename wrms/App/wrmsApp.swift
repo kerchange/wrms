@@ -17,19 +17,6 @@ struct WrmsApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     init() {
-        // Setup notification permissions and scheduling
-        NotificationManager.shared.requestPermissions { granted in
-            if granted {
-                NotificationManager.shared.scheduleExpiryCheckNotification()
-                
-                // Check for expiring items when app starts
-                DispatchQueue.main.async {
-                    NotificationManager.shared.checkExpiringItems(in: persistenceController.container.viewContext)
-                }
-            }
-        }
-        
-        // Apply custom appearance settings
         setupAppearance()
     }
     
@@ -37,6 +24,10 @@ struct WrmsApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear {
+                    // Move notification setup here
+                    setupNotifications()
+                }
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
@@ -53,6 +44,19 @@ struct WrmsApp: App {
                 
             default:
                 break
+            }
+        }
+    }
+    
+    private func setupNotifications() {
+        NotificationManager.shared.requestPermissions { granted in
+            if granted {
+                NotificationManager.shared.scheduleExpiryCheckNotification()
+                
+                // Check for expiring items when app starts
+                DispatchQueue.main.async {
+                    NotificationManager.shared.checkExpiringItems(in: self.persistenceController.container.viewContext)
+                }
             }
         }
     }
