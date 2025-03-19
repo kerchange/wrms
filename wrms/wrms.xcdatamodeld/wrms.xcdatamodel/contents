@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
+    <entity name="Item" representedClassName="Item" syncable="YES">
         <attribute name="expiryDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
@@ -8,13 +8,13 @@
         <attribute name="name" attributeType="String"/>
         <relationship name="storagePoint" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoragePoint" inverseName="items" inverseEntity="StoragePoint"/>
     </entity>
-    <entity name="StorageArea" representedClassName="StorageArea" syncable="YES" codeGenerationType="category">
+    <entity name="StorageArea" representedClassName="StorageArea" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageData" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="storagePoints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="StoragePoint" inverseName="storageArea" inverseEntity="StoragePoint"/>
     </entity>
-    <entity name="StoragePoint" representedClassName="StoragePoint" syncable="YES" codeGenerationType="category">
+    <entity name="StoragePoint" representedClassName=".StoragePoint" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="xPosition" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
